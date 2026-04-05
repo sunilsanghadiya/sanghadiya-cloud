@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sanghadiya Cloud Services - India's Trusted Cloud Infrastructure</title>
+  <title>Sanghadiya Cloud Services </title>
   <meta name="description" content="Sanghadiya Cloud Services offers secure, locally-controlled cloud infrastructure for Indian businesses. Cloud Storage, VPS, and Data Backup — all within India." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -514,7 +514,7 @@
     
     <div class="hero-badge">
       <span class="pulse-dot"></span>
-      🚧 Work in Progress
+      Commin Soon
     </div>
 
     <h1>
@@ -536,7 +536,7 @@
     <div style="max-width:400px; margin:1.5rem auto;">
       <div style="display:flex; justify-content:space-between; font-size:.8rem; color:var(--muted); margin-bottom:.4rem;">
         <span>Progress</span>
-        <span>35%</span>
+        <span>38%</span>
       </div>
       <div class="bar-track">
         <div class="bar-fill" style="width:35%"></div>
@@ -550,11 +550,20 @@
       </p>
 
       <div style="display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap;">
-        <input 
-          type="email" 
-          placeholder="Enter your email"
-          style="padding:.8rem 1rem; border-radius:8px; border:1px solid var(--border); min-width:220px;"
-        />
+        <div style="display:flex; flex-direction:column; align-items:center; gap:.4rem;">
+          <input 
+            type="email" 
+            id="email"
+            placeholder="Enter your email"
+            oninput="validateEmail()"
+            style="padding:.8rem 1rem; border-radius:8px; border:1px solid var(--border); min-width:220px;"
+          />
+
+          <span id="emailError" style="color:#dc2626; font-size:.8rem; display:none;">
+            Invalid email format
+          </span>
+
+        </div>
         <button class="btn-primary" onclick="notifyUser()">
           Notify Me →
         </button>
@@ -573,16 +582,44 @@
 
 <!-- FOOTER -->
 <footer style="text-align:center;">
-  <p>© 2026 Sanghadiya Cloud Services</p>
-  <p style="margin-top:.4rem;">🇮🇳 Built in India · Launching Soon</p>
+  <p>© © 2026 Sanghadiya Cloud Services. All rights reserved.</p>
+  <p style="margin-top:.4rem;">India's Trusted Cloud Infrastructure</p>
 </footer>
 
 <!-- TOAST -->
 <div class="toast hidden" id="toast">✅ You're on the waitlist!</div>
 
 <script>
+  const regex = /^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9-]{2,}\.[a-zA-Z]{2,}$/;
+
+  function validateEmail() {
+    const emailInput = document.getElementById('email');
+    const errorText = document.getElementById('emailError');
+    const value = emailInput.value.trim();
+
+    if (value === "") {
+      errorText.style.display = "none";
+      emailInput.style.borderColor = "#E8E8E8";
+      return false;
+    }
+
+    if (!regex.test(value)) {
+      errorText.style.display = "block";
+      emailInput.style.borderColor = "#dc2626";
+      return false;
+    } else {
+      errorText.style.display = "none";
+      emailInput.style.borderColor = "#16a34a";
+      return true;
+    }
+  }
+
   function notifyUser() {
+    const isValid = validateEmail();
     const toast = document.getElementById('toast');
+
+    if (!isValid) return;
+
     toast.innerText = "✅ Thanks! We'll notify you at launch.";
     toast.classList.remove('hidden');
     setTimeout(() => toast.classList.add('hidden'), 3000);
